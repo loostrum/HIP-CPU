@@ -6,12 +6,6 @@ target_link_libraries(
     examples_common INTERFACE
         hip_cpu_rt::hip_cpu_rt)
 
-target_compile_definitions(
-    examples_common INTERFACE
-        $<$<CXX_COMPILER_ID:MSVC>:
-            WIN32_LEAN_AND_MEAN
-            NOMINMAX>)
-
 add_subdirectory(bit_extract)
 add_subdirectory(hip_bus_bandwidth)
 add_subdirectory(hip_dispatch_enqueue_rate_mt)

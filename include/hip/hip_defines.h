@@ -18,44 +18,20 @@
 #define __HIP__ // TODO: potentially dangerous.
 #define __HIPCC__ // TODO: potentially dangerous.
 
-#if defined(__clang__) || defined(__GNUC__)
-    #define __constant__ /*constexpr*/
-#else
-    #define __constant__ __declspec(dllexport)
-#endif
+#define __constant__ /*constexpr*/
 
-#if defined(__clang__) || defined(_MSC_VER)
+#if defined(__clang__)
     #define __device__ /*_Pragma("omp declare simd")*/
 #else
     #define __device__ __attribute__((simd))
 #endif
 #if defined(NDEBUG)
-    #if defined(__clang__) || defined(__GNUC__)
-        #define __forceinline__ __attribute__((always_inline)) inline
-    #else
-        #if defined(__has_cpp_attribute)
-            #if __has_cpp_attribute(msvc::forceinline)
-                #define __forceinline__ [[msvc::forceinline]] inline
-            #else
-                #define __forceinline__ __forceinline
-            #endif
-        #else
-            #define __forceinline__ __forceinline
-        #endif
-    #endif
+    #define __forceinline__ __attribute__((always_inline)) inline
 #else
     #define __forceinline__
 #endif
 
-#if defined(_WIN32)
-    #if !defined(HIP_LIBRARY_BUILD)
-        #define __HIP_API__ __declspec(dllexport)
-    #else
-        #define __HIP_API__ __declspec(dllimport)
-    #endif
-#else
-    #define __HIP_API__ __attribute__((visibility("default")))
-#endif
+#define __HIP_API__ __attribute__((visibility("default")))
 
 #define __host__
 
@@ -67,8 +43,6 @@
     #else
         #define __global__ __attribute__((flatten))
     #endif
-#elif defined(_MSC_VER)
-    #define __global__ __forceinline__ __declspec(dllexport)
 #endif
 
 #define HIP_KERNEL_NAME(...) __VA_ARGS__
@@ -94,9 +68,7 @@
     #endif
 #endif
 
-#if defined(_MSC_VER)
-    #define __HIP_TILE_FUNCTION__ __forceinline__
-#elif defined(__clang__)
+#if defined(__clang__)
     #define __HIP_TILE_FUNCTION__\
         _Pragma("omp declare simd")\
         __attribute__((always_inline, flatten, vectorcall))
@@ -104,8 +76,4 @@
     #define __HIP_TILE_FUNCTION__ __attribute__((always_inline, flatten, simd))
 #endif
 
-#if defined(_MSC_VER)  // TODO: revisit when _Pragma is supported
-    #define __HIP_VECTORISED_LOOP__ __pragma(omp simd)
-#else
-    #define __HIP_VECTORISED_LOOP__ _Pragma("omp simd")
-#endif
+#define __HIP_VECTORISED_LOOP__ _Pragma("omp simd")

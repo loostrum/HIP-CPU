@@ -24,34 +24,24 @@ target_include_directories(
         $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
 target_compile_features(${PROJECT_NAME} INTERFACE cxx_std_17)
 
-if (NOT ${CMAKE_CXX_COMPILER_ID} STREQUAL MSVC)
-    find_package(Threads REQUIRED)
+find_package(Threads REQUIRED)
 
-    target_compile_options(${PROJECT_NAME} INTERFACE -fopenmp-simd)
+target_compile_options(${PROJECT_NAME} INTERFACE -fopenmp-simd)
+target_link_libraries(
+    ${PROJECT_NAME} INTERFACE ${CMAKE_DL_LIBS} Threads::Threads)
+
+include(CheckCXXSymbolExists)
+set(CMAKE_REQUIRED_FLAGS "-std=c++17")
+check_cxx_symbol_exists(
+    __PSTL_PAR_BACKEND_TBB "cstddef" STL_DEPENDS_ON_TBB0)
+if (NOT STL_DEPENDS_ON_TBB0)
+    check_cxx_symbol_exists(
+        _PSTL_PAR_BACKEND_TBB "cstddef" STL_DEPENDS_ON_TBB1)
+endif ()
+if (STL_DEPENDS_ON_TBB0 OR STL_DEPENDS_ON_TBB1)
+    find_package(TBB REQUIRED)
     target_link_libraries(
-        ${PROJECT_NAME} INTERFACE ${CMAKE_DL_LIBS} Threads::Threads)
-
-    if(CMAKE_HOST_APPLE)
-        # TODO: The macro name used to detect TBB dependence differs on MacOS
-        set(STL_DEPENDS_ON_TBB ON)
-    else()
-        include(CMakePrintHelpers)
-        include(CheckCXXSymbolExists)
-        set(CMAKE_REQUIRED_FLAGS "-std=c++17")
-        check_cxx_symbol_exists(
-            __PSTL_PAR_BACKEND_TBB "cstddef" STL_DEPENDS_ON_TBB0)
-        if (NOT STL_DEPENDS_ON_TBB0)
-            check_cxx_symbol_exists(
-                _PSTL_PAR_BACKEND_TBB "cstddef" STL_DEPENDS_ON_TBB1)
-        endif ()
-    endif()
-    if (STL_DEPENDS_ON_TBB0 OR STL_DEPENDS_ON_TBB1)
-        find_package(TBB REQUIRED)
-        target_link_libraries(
-            ${PROJECT_NAME} INTERFACE TBB::tbb)
-    endif()
-else ()
-    target_compile_options(${PROJECT_NAME} INTERFACE /openmp:experimental)
+        ${PROJECT_NAME} INTERFACE TBB::tbb)
 endif ()
 
 option(

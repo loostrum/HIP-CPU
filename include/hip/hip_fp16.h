@@ -21,13 +21,6 @@
 using __half = hip::detail::half;
 using __half2 = hip::detail::half2;
 
-#if defined(_MSC_VER) // TODO: remove kludge.
-    namespace std
-    {
-        template<> inline constexpr auto is_floating_point_v<__half> = true;
-    } // Namespace std.
-#endif
-
 // BEGIN __HALF INTRINSICS
 inline
 __half __habs(__half x) noexcept

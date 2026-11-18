@@ -30,11 +30,6 @@
 
 #include <iostream>
 
-#if defined(_MSC_VER)
-    #pragma warning(push)
-    #pragma warning(disable:4251) // TODO: temporary.
-#endif
-
 namespace hip
 {
     namespace detail
@@ -245,7 +240,3 @@ namespace hip
         // END CLASS RUNTIME
     } // Namespace hip::detail.
 } // Namespace hip.
-
-#if defined(_MSC_VER)
-    #pragma warning(pop)
-#endif
