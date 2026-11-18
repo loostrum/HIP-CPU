@@ -11,11 +11,7 @@
 
 #define __HIP_CPU_RT__
 
-#if defined(_MSC_VER) && !defined(__clang__)
-    #include "../../src/include/hip/detail/atomic_msvc.hpp"
-#else
-    #include "../../src/include/hip/detail/atomic_clang_gcc.hpp"
-#endif
+#include "../../src/include/hip/detail/atomic_clang_gcc.hpp"
 
 #pragma once
 

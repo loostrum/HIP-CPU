@@ -48,10 +48,8 @@ point in the future, but there is no commitment to it at the moment.
 
 ## Is it Linux only? ##
 
-No, the HIP CPU Runtime is OS agnostic. As long as a C++17 compliant toolchain
-is available for some OS then the HIP CPU Runtime shall work in that
-environment. [Please create an issue](https://github.com/ROCm-Developer-Tools/HIP-CPU/issues/new/choose)
-if you have identified a case where this does not hold, as it is a bug.
+Yes, Linux is the only supported operating system. Windows and macOS are not
+supported.
 
 ## Can I interoperate with the HIP GPU Runtime? ##
 

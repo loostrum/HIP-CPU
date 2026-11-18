@@ -13,11 +13,9 @@ _b**a**d **bu**gs lurking_.
 * [HIP CPU Runtime Overview](/docs/overview.md)
 * [HIP CPU Runtime Performance Considerations](/docs/performance.md)
 
-HIP CPU Runtime tutorials per compiler and platform
+HIP CPU Runtime tutorials per compiler
 
 * [GCC on Linux](/docs/gcc_linux.md)
-* [GCC on MacOS](/docs/gcc_macos.md)
-* [Microsoft C++ Compiler (MSVC) on Windows](/docs/msvc.md)
 * Others (TODO)
 
 ## Quick Links ##

@@ -12,19 +12,10 @@
 #include "helpers.hpp"
 #include "vector.hpp"
 
-#if defined(_MSC_VER)
-    #pragma warning(push)
-    #pragma warning(disable:4018)
-#else
-    #pragma GCC diagnostic push
-    #pragma GCC diagnostic ignored "-Wsign-compare"
-#endif
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wsign-compare"
 #include "../../../../external/half/half.hpp"
-#if defined(_MSC_VER)
-    #pragma warning(pop)
-#else
-    #pragma GCC diagnostic pop
-#endif
+#pragma GCC diagnostic pop
 
 #include <type_traits>
 

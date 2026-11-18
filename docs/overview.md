@@ -1,18 +1,16 @@
 # The HIP CPU Runtime #
 
-The HIP CPU Runtime enables cross-platform [HIP](https://github.com/ROCm-Developer-Tools/HIP)
-development on multiple operating systems such as Linux, macOS on Windows, when
-targeting CPUs. It is a header-only C++ library that is not operating system or
-target specific. It does not require special compiler support, and allows the
-same HIP code to be written once to run (almost) everywhere.
+The HIP CPU Runtime enables [HIP](https://github.com/ROCm-Developer-Tools/HIP)
+development on Linux when targeting CPUs. It is a header-only C++ library that
+is not target specific. It does not require special compiler support, and allows
+the same HIP code to be written once to run on any CPU.
 
 ## System Requirements ##
 
+- Linux;
 - A C++17 (or later) compliant toolchain, e.g.:
   - [GCC](https://gcc.gnu.org/), from version 9 onwards;
   - [Clang / LLVM](http://clang.llvm.org/), from version 9 onwards;
-  - [Microsoft C++](https://visualstudio.microsoft.com/vs/features/cplusplus/),
-    from version 19.14 onwards;
 - Please check [cppreference.com](https://en.cppreference.com/w/cpp/compiler_support)
   for more details about C++ support on various toolchains.
 
@@ -66,7 +64,7 @@ Without the HIP CPU Runtime, this would only execute on some AMD or NVIDIA GPUs,
 with various requirements being imposed on the surrounding environment (e.g.
 only the Linux OS can be used in AMD's case, only certain compilers can be used,
 only IHV provided tools work etc.). Using the HIP CPU Runtime, the same code can
-be compiled and executed, unmodified, on any CPU, in any OS. All familiar tools
+be compiled and executed, unmodified, on any CPU running Linux. All familiar tools
 such as debuggers, sanitizers, profilers or runtime optimisers can be used
 without any extra ritual involved. Furthermore, because the HIP programming
 model is centered on the idea of bulk, blocked parallel execution, it implicitly

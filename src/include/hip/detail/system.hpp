@@ -37,8 +37,4 @@ namespace hip
     } // Namespace hip::detail.
 } // Namespace hip.
 
-#if defined(_WIN32)
-    #include "system_windows.inl"
-#else
-    #include "system_posix.inl"
-#endif
+#include "system_posix.inl"

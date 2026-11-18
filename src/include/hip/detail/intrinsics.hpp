@@ -12,10 +12,6 @@
 #include "tile.hpp"
 #include "../../../../include/hip/hip_constants.h"
 
-#if defined(_MSC_VER)
-    #include <intrin.h>
-#endif
-
 #include <atomic>
 #include <bitset>
 #include <chrono>
@@ -53,9 +49,7 @@ namespace hip
             }};
 
             if constexpr (sizeof(T) == sizeof(std::uint32_t)) {
-                #if defined(_MSC_VER)
-                    return __popcnt(x);
-                #elif defined(__has_builtin)
+                #if defined(__has_builtin)
                     #if __has_builtin(__builtin_popcount)
                         return __builtin_popcount(x);
                     #else
@@ -66,9 +60,7 @@ namespace hip
                 #endif
             }
             else {
-                #if defined(_MSC_VER)
-                    return static_cast<std::uint32_t>(__popcnt64(x));
-                #elif defined(__has_builtin)
+                #if defined(__has_builtin)
                     #if __has_builtin(__builtin_popcountll)
                         return __builtin_popcountll(x);
                     #else
@@ -111,11 +103,7 @@ namespace hip
             }};
 
             if constexpr (sizeof(T) == sizeof(std::uint32_t)) {
-                #if defined(_MSC_VER) && !defined(__clang__)
-                    unsigned long r{0};
-                    return static_cast<std::uint32_t>(
-                        _BitScanForward(&r, x) ? (r + 1) : 0);
-                #elif defined(__has_builtin)
+                #if defined(__has_builtin)
                     #if __has_builtin(__builtin_ffs)
                         return __builtin_ffs(x);
                     #else
@@ -126,11 +114,7 @@ namespace hip
                 #endif
             }
             else {
-                #if defined(_MSC_VER) && !defined(__clang__)
-                    unsigned long r{0};
-                    return static_cast<std::uint32_t>(
-                        _BitScanForward64(&r, x) ? (r + 1) : 0);
-                #elif defined(__has_builtin)
+                #if defined(__has_builtin)
                     #if __has_builtin(__builtin_ffs)
                         return __builtin_ffsll(x);
                     #else
@@ -176,9 +160,7 @@ namespace hip
             }};
 
             if constexpr (sizeof(T) == sizeof(std::uint32_t)) {
-                #if defined(_MSC_VER)
-                    return __lzcnt(x);
-                #elif defined(__has_builtin)
+                #if defined(__has_builtin)
                     #if __has_builtin(__builtin_clz)
                         return __builtin_clz(x);
                     #else
@@ -189,9 +171,7 @@ namespace hip
                 #endif
             }
             else {
-                #if defined(_MSC_VER)
-                    return static_cast<std::uint32_t>(__lzcnt64(x));
-                #elif defined(__has_builtin)
+                #if defined(__has_builtin)
                     #if __has_builtin(__builtin_clzll)
                         return __builtin_clzll(x);
                     #else

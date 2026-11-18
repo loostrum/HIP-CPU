@@ -8,9 +8,6 @@
     #error Private HIP-CPU RT implementation headers must not be included directly.
 #endif
 
-#if defined(_MSC_VER) && !defined(_MATH_DEFINES_DEFINED)
-    #define _MATH_DEFINES_DEFINED
-#endif
 #include <cmath>
 #include <cstdint>
 #include <execution>

@@ -8,25 +8,16 @@
     #error Private HIP-CPU RT implementation headers must not be included directly.
 #endif
 
-#if defined(_MSC_VER)
-    #pragma warning(push)
-    #pragma warning(disable:4706)
-#else
-    #pragma GCC diagnostic push
-    #pragma GCC diagnostic ignored "-Wparentheses"
-#endif
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wparentheses"
 #if !defined(LIBCO_MP)
     #define LIBCO_MP
 #endif
-#if !defined(__clang__) && !defined(_MSC_VER)
+#if !defined(__clang__)
     #define LIBCO_MPROTECT
 #endif
 #include "../../../../external/libco/libco.h"
-#if defined(_MSC_VER)
-    #pragma warning(pop)
-#else
-    #pragma GCC diagnostic pop
-#endif
+#pragma GCC diagnostic pop
 
 #if defined(thread_local) // libco sometimes squats on this space
     #undef thread_local

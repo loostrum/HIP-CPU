@@ -3,20 +3,11 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 add_library(tests_common INTERFACE)
 
 target_link_libraries(tests_common INTERFACE hip_cpu_rt::hip_cpu_rt)
-target_compile_definitions(
-    tests_common INTERFACE
-        $<$<CXX_COMPILER_ID:MSVC>:
-            WIN32_LEAN_AND_MEAN
-            NOMINMAX>)
 
 add_library(perf_tests_common INTERFACE)
 
 target_compile_options(
-    perf_tests_common INTERFACE
-        # CMake 3.19 required for list in $<CONFIG:cfg1,cfg2> for shorthand
-        $<$<AND:$<CXX_COMPILER_ID:MSVC>,$<CONFIG:RelWithDebInfo>>:/Ob3>
-        $<$<AND:$<CXX_COMPILER_ID:MSVC>,$<CONFIG:Debug>>:/Ob3>
-        $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-ffast-math -march=native>)
+    perf_tests_common INTERFACE -ffast-math -march=native)
 
 add_executable(
     performance_tests
